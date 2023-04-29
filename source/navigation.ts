@@ -8,19 +8,25 @@ export interface OnNavigateOptions {
     methods?: Array<NavigationMethod>;
     timerInterval?: number;
     urlGetter?: () => string;
+    windowGetter?: () => Window | WindowProxy;
 }
 
-export function onNavigate(callback: () => void, opts: OnNavigateOptions): {
+export function onNavigate(
+    callback: () => void,
+    opts: OnNavigateOptions
+): {
     remove: () => void;
 } {
     const {
         methods = Object.values(NavigationMethod),
         timerInterval = 1000,
-        urlGetter = () => window.location.href.toString()
+        urlGetter = () => window.location.href.toString(),
+        windowGetter = () => window
     } = opts;
     if (methods.length <= 0) {
         throw new Error("Invalid configuration: No navigation methods specified");
     }
+    const win = windowGetter();
     let cleanup: () => void = () => {};
     // Check and execute callback
     let lastURL = urlGetter();
@@ -48,11 +54,11 @@ export function onNavigate(callback: () => void, opts: OnNavigateOptions): {
         const handlePopstate = () => {
             checkForNavigation();
         };
-        window.addEventListener("popstate", handlePopstate);
+        win.addEventListener("popstate", handlePopstate);
         const oldCleanup = cleanup;
         cleanup = () => {
             oldCleanup();
-            window.removeEventListener("popstate", handlePopstate);
+            win.removeEventListener("popstate", handlePopstate);
         };
     }
     // Method 3: beforeunload
@@ -60,11 +66,11 @@ export function onNavigate(callback: () => void, opts: OnNavigateOptions): {
         const handleBeforeUnload = () => {
             checkForNavigation(true);
         };
-        window.addEventListener("beforeunload", handleBeforeUnload);
+        win.addEventListener("beforeunload", handleBeforeUnload);
         const oldCleanup = cleanup;
         cleanup = () => {
             oldCleanup();
-            window.removeEventListener("beforeunload", handleBeforeUnload);
+            win.removeEventListener("beforeunload", handleBeforeUnload);
         };
     }
     // Handler
