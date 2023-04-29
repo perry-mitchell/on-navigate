@@ -1,0 +1,28 @@
+{
+  "name": "on-navigate",
+  "version": "0.0.0",
+  "description": "Navigation listener for standard webpages and SPAs",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/perry-mitchell/on-navigate.git"
+  },
+  "keywords": [
+    "navigation",
+    "navigate",
+    "on",
+    "event",
+    "spa",
+    "history",
+    "url"
+  ],
+  "author": "Perry Mitchell <perry@perrymitchell.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/perry-mitchell/on-navigate/issues"
+  },
+  "homepage": "https://github.com/perry-mitchell/on-navigate#readme"
+}
