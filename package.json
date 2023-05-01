@@ -1,6 +1,6 @@
 {
   "name": "on-navigate",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Navigation listener for standard webpages and SPAs",
   "exports": "./dist/index.js",
   "types": "./dist/index.d.ts",
