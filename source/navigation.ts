@@ -13,7 +13,7 @@ export interface OnNavigateOptions {
 
 export function onNavigate(
     callback: () => void,
-    opts: OnNavigateOptions
+    opts: OnNavigateOptions = {}
 ): {
     remove: () => void;
 } {
